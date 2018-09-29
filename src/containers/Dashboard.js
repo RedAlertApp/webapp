@@ -51,7 +51,7 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
-    const socket = io("http://192.168.1.179:2137") //LOCAL
+    const socket = io(process.env.REACT_APP_SERVER_URL)
     this.props.dispatch(initSocket(socket))
 
     socket.on("reports", reports => {
