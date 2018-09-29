@@ -40,7 +40,7 @@ class Dashboard extends Component {
   }
 
   fixReport = key => {
-    this.props.socket.emit("fixReport", this.props.reports[key]._id)
+    this.props.socket.emit("fixReport", this.props.reports[key].id)
   }
 
   showOnMap = key => {
