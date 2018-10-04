@@ -5,5 +5,5 @@ install:
   - npm ci
   - npm install -g codecov
 script:
-  - CI=true npm test
+  - npm test
   - codecov
