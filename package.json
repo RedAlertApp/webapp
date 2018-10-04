@@ -23,7 +23,7 @@
     "redux-saga": "0.16.0",
     "redux-thunk": "2.3.0",
     "socket.io-client": "2.1.1",
-    "eslint": "4.1.1"
+    "eslint": "5.6.1"
   },
   "devDependencies": {
     "husky": "1.1.0",
