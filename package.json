@@ -7,8 +7,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "precommit": "pretty-quick --staged",
-    "test-ci": "react-scripts test --env=jsdom"
+    "precommit": "pretty-quick --staged"
   },
   "dependencies": {
     "@types/react": "16.4.14",
@@ -26,8 +25,8 @@
     "socket.io-client": "2.1.1"
   },
   "devDependencies": {
-    "enzyme": "^3.6.0",
-    "enzyme-adapter-react-16": "^1.5.0",
+    "enzyme": "3.6.0",
+    "enzyme-adapter-react-16": "1.5.0",
     "husky": "1.1.0",
     "prettier": "1.14.3",
     "pretty-quick": "1.7.0"
