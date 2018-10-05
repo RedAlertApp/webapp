@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom"
 import { Provider } from "react-redux"
 
 import store from "./store"
-import Dashboard from "./containers/Dashboard"
+import Dashboard from "./components/Dashboard"
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./index.css"
