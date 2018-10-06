@@ -6,7 +6,7 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
 
 import { initSocket, updateReports } from "../actions"
 
-class Dashboard extends Component {
+export class Dashboard extends Component {
   constructor(props) {
     super(props)
 
@@ -52,16 +52,16 @@ class Dashboard extends Component {
 
   componentDidMount() {
     const socket = io(process.env.REACT_APP_SERVER_URL)
-    this.props.dispatch(initSocket(socket))
+    this.props.initSocket(socket)
 
     socket.on("reports", reports => {
-      this.props.dispatch(updateReports(reports))
+      this.props.updateReports(reports)
     })
   }
 
   render() {
     return (
-      <div>
+      <>
         <nav className="navbar navbar-expand-lg navbar-light bg-dark">
           <Link className="navbar-brand" to="/" style={{ color: "white" }}>
             Moduł Policja Kielce
@@ -166,7 +166,7 @@ class Dashboard extends Component {
             </div>
           </div>
         </main>
-      </div>
+      </>
     )
   }
 }
@@ -176,6 +176,13 @@ const mapStateToProps = state => {
     reports: state.appReducer.reports,
     socket: state.appReducer.socket,
     showReportModal: state.appReducer.showReportModal
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    initSocket: socket => dispatch(initSocket(socket)),
+    updateReports: reports => dispatch(updateReports(reports))
   }
 }
 
@@ -199,7 +206,10 @@ const mapCategoryToColor = category => {
   }
 }
 
-export default connect(mapStateToProps)(
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
   GoogleApiWrapper({
     apiKey: "AIzaSyDJpRz5sILnG-V1z9Ezvir21ByL_yNs03c"
   })(Dashboard)
