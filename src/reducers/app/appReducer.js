@@ -2,13 +2,17 @@ import {
   INIT_SOCKET,
   UPDATE_REPORTS,
   SHOW_REPORT_MODAL,
-  HIDE_REPORT_MODAL
+  HIDE_REPORT_MODAL,
+  UPDATE_CENTER
 } from "../../actions/actionTypes"
+
+import { defaultRegion } from "../../constants"
 
 const initialState = {
   reports: [],
   socket: null,
-  showReportModal: false
+  showReportModal: false,
+  center: defaultRegion // Kielce
 }
 
 const appReducer = (state = initialState, action) => {
@@ -38,6 +42,13 @@ const appReducer = (state = initialState, action) => {
       return {
         ...state,
         showReportModal: false
+      }
+    }
+
+    case UPDATE_CENTER: {
+      return {
+        ...state,
+        center: action.payload
       }
     }
 

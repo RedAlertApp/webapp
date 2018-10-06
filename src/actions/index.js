@@ -2,7 +2,8 @@ import {
   INIT_SOCKET,
   UPDATE_REPORTS,
   SHOW_REPORT_MODAL,
-  HIDE_REPORT_MODAL
+  HIDE_REPORT_MODAL,
+  UPDATE_CENTER
 } from "./actionTypes"
 
 export const initSocket = socket => {
@@ -28,5 +29,12 @@ export const showReportModal = () => {
 export const closeReportModal = () => {
   return {
     type: HIDE_REPORT_MODAL
+  }
+}
+
+export const updateCenter = center => {
+  return {
+    type: UPDATE_CENTER,
+    payload: center
   }
 }

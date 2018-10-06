@@ -2,48 +2,18 @@ import React, { Component } from "react"
 import { connect } from "react-redux"
 import io from "socket.io-client"
 import { Link } from "react-router-dom"
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
+import ReportsMap from "./ReportsMap"
 
-import { initSocket, updateReports } from "../actions"
+import { initSocket, updateReports, updateCenter } from "../actions"
 
 export class Dashboard extends Component {
-  state = {
-    activeMarker: {},
-    selectedReport: {},
-    showingInfoWindow: false,
-    center: { lat: 50.87, lng: 20.62 } // Kielce
-  }
-
-  onMarkerClick = (props, marker) =>
-    this.setState({
-      activeMarker: marker,
-      selectedReport: props,
-      showingInfoWindow: true
-    })
-
-  onInfoWindowClose = () =>
-    this.setState({
-      activeMarker: null,
-      showingInfoWindow: false
-    })
-
-  onMapClicked = () => {
-    if (this.state.showingInfoWindow)
-      this.setState({
-        activeMarker: null,
-        showingInfoWindow: false
-      })
-  }
-
   fixReport = key => {
     this.props.socket.emit("fixReport", this.props.reports[key].id)
   }
 
   showOnMap = key => {
     let report = this.props.reports[key]
-    this.setState({
-      center: { lat: report.latitude, lng: report.longitude }
-    })
+    this.props.updateCenter({ lat: report.latitude, lng: report.longitude })
   }
 
   componentDidMount() {
@@ -122,43 +92,7 @@ export class Dashboard extends Component {
               ))}
             </div>
             <div className="col-9">
-              <Map
-                className="map"
-                google={this.props.google}
-                onClick={this.onMapClicked}
-                style={{ height: "90vh", position: "relative", width: "100%" }}
-                zoom={14}
-                initialCenter={{ lat: 50.87, lng: 20.62 }} // Kielce,
-                center={this.state.center}
-              >
-                {this.props.reports.map((report, key) => (
-                  <Marker
-                    description={report.description}
-                    extra={report.extra}
-                    latitude={report.latitude}
-                    longitude={report.longitude}
-                    confirmations={report.confirmations}
-                    onClick={this.onMarkerClick}
-                    position={{ lat: report.latitude, lng: report.longitude }}
-                    key={key}
-                  />
-                ))}
-
-                <InfoWindow
-                  marker={this.state.activeMarker}
-                  onClose={this.onInfoWindowClose}
-                  visible={this.state.showingInfoWindow}
-                >
-                  <div>
-                    <h1>{this.state.selectedReport.description}</h1>
-                    <p>{this.state.selectedReport.extra}</p>
-                    <p>
-                      [{this.state.selectedReport.latitude},{" "}
-                      {this.state.selectedReport.longitude}]
-                    </p>
-                  </div>
-                </InfoWindow>
-              </Map>
+              <ReportsMap />
             </div>
           </div>
         </main>
@@ -178,7 +112,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     initSocket: socket => dispatch(initSocket(socket)),
-    updateReports: reports => dispatch(updateReports(reports))
+    updateReports: reports => dispatch(updateReports(reports)),
+    updateCenter: center => dispatch(updateCenter(center))
   }
 }
 
@@ -205,8 +140,4 @@ const mapCategoryToColor = category => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  GoogleApiWrapper({
-    apiKey: process.env.REACT_APP_GOOGLE_MAPS_API
-  })(Dashboard)
-)
+)(Dashboard)
