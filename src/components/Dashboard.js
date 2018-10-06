@@ -60,14 +60,14 @@ export class Dashboard extends Component {
                         "20px solid " + mapCategoryToColor(report.category)
                     }}
                   >
-                    <h5 class="card-title">{report.description}</h5>
-                    <div class="card-text row">
+                    <h5 className="card-title">{report.description}</h5>
+                    <div className="card-text row">
                       <div className="col-6">{report.extra}</div>
                       <div className="col-6">
                         <div className="row">
                           <button
                             type="button"
-                            class="btn btn-primary"
+                            className="btn btn-primary"
                             onClick={() => this.fixReport(key)}
                           >
                             PRZYJMIJ ZGLOSZENIE
@@ -76,7 +76,7 @@ export class Dashboard extends Component {
                         <div className="row">
                           <button
                             type="button"
-                            class="btn btn-success"
+                            className="btn btn-success"
                             onClick={() => this.showOnMap(key)}
                           >
                             POKAŻ NA MAPIE
@@ -104,8 +104,7 @@ export class Dashboard extends Component {
 const mapStateToProps = state => {
   return {
     reports: state.appReducer.reports,
-    socket: state.appReducer.socket,
-    showReportModal: state.appReducer.showReportModal
+    socket: state.appReducer.socket
   }
 }
 

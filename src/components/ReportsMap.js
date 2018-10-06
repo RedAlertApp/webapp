@@ -1,16 +1,14 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { Map, Marker, GoogleApiWrapper } from "google-maps-react"
+import { Map, Marker, GoogleApiWrapper, InfoWindow } from "google-maps-react"
 import { defaultRegion } from "../constants"
-import { ReportsMapMarkerWindow } from "./ReportsMapMarkerWindow"
 
 import { showMarkerWindow, hideMarkerWindow } from "../actions"
+import MarkerWindowContent from "./MarkerWindowContent"
 
 export class ReportsMap extends Component {
-  onInfoWindowClose = () => this.hideMarkerWindow()
-
   onMapClicked = () => {
-    if (this.props.showingInfoWindow) this.hideMarkerWindow()
+    if (this.props.showingInfoWindow) this.props.hideMarkerWindow()
   }
 
   onMarkerClick = (props, marker) =>
@@ -19,8 +17,6 @@ export class ReportsMap extends Component {
       selectedReport: props,
       showingInfoWindow: true
     })
-
-  hideMarkerWindow = () => this.props.hideMarkerWindow()
 
   render() {
     return (
@@ -45,8 +41,12 @@ export class ReportsMap extends Component {
             key={key}
           />
         ))}
-
-        <ReportsMapMarkerWindow />
+        <InfoWindow
+          marker={this.props.activeMarker}
+          visible={this.props.showingInfoWindow}
+        >
+          <MarkerWindowContent selectedReport={this.props.selectedReport} />
+        </InfoWindow>
       </Map>
     )
   }
@@ -56,7 +56,9 @@ const mapStateToProps = state => {
   return {
     reports: state.appReducer.reports,
     center: state.appReducer.center,
-    showingInfoWindow: state.appReducer.showingInfoWindow
+    showingInfoWindow: state.appReducer.showingInfoWindow,
+    activeMarker: state.appReducer.activeMarker,
+    selectedReport: state.appReducer.selectedReport
   }
 }
 
