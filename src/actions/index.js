@@ -3,7 +3,9 @@ import {
   UPDATE_REPORTS,
   SHOW_REPORT_MODAL,
   HIDE_REPORT_MODAL,
-  UPDATE_CENTER
+  UPDATE_CENTER,
+  SHOW_MARKER_WINDOW,
+  HIDE_MARKER_WINDOW
 } from "./actionTypes"
 
 export const initSocket = socket => {
@@ -36,5 +38,18 @@ export const updateCenter = center => {
   return {
     type: UPDATE_CENTER,
     payload: center
+  }
+}
+
+export const showMarkerWindow = data => {
+  return {
+    type: SHOW_MARKER_WINDOW,
+    payload: data
+  }
+}
+
+export const hideMarkerWindow = () => {
+  return {
+    type: HIDE_MARKER_WINDOW
   }
 }

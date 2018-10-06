@@ -1,33 +1,26 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
+import { Map, Marker, GoogleApiWrapper } from "google-maps-react"
 import { defaultRegion } from "../constants"
+import { ReportsMapMarkerWindow } from "./ReportsMapMarkerWindow"
+
+import { showMarkerWindow, hideMarkerWindow } from "../actions"
 
 export class ReportsMap extends Component {
-  state = {
-    activeMarker: {},
-    selectedReport: {},
-    showingInfoWindow: false
-  }
-
   onInfoWindowClose = () => this.hideMarkerWindow()
 
   onMapClicked = () => {
-    if (this.state.showingInfoWindow) this.hideMarkerWindow()
+    if (this.props.showingInfoWindow) this.hideMarkerWindow()
   }
 
   onMarkerClick = (props, marker) =>
-    this.setState({
+    this.props.showMarkerWindow({
       activeMarker: marker,
       selectedReport: props,
       showingInfoWindow: true
     })
 
-  hideMarkerWindow = () =>
-    this.setState({
-      activeMarker: null,
-      showingInfoWindow: false
-    })
+  hideMarkerWindow = () => this.props.hideMarkerWindow()
 
   render() {
     return (
@@ -53,20 +46,7 @@ export class ReportsMap extends Component {
           />
         ))}
 
-        <InfoWindow
-          marker={this.state.activeMarker}
-          onClose={this.onInfoWindowClose}
-          visible={this.state.showingInfoWindow}
-        >
-          <div>
-            <h1>{this.state.selectedReport.description}</h1>
-            <p>{this.state.selectedReport.extra}</p>
-            <p>
-              [{this.state.selectedReport.latitude},{" "}
-              {this.state.selectedReport.longitude}]
-            </p>
-          </div>
-        </InfoWindow>
+        <ReportsMapMarkerWindow />
       </Map>
     )
   }
@@ -75,11 +55,22 @@ export class ReportsMap extends Component {
 const mapStateToProps = state => {
   return {
     reports: state.appReducer.reports,
-    center: state.appReducer.center
+    center: state.appReducer.center,
+    showingInfoWindow: state.appReducer.showingInfoWindow
   }
 }
 
-export default connect(mapStateToProps)(
+const mapDispatchToProps = dispatch => {
+  return {
+    showMarkerWindow: data => dispatch(showMarkerWindow(data)),
+    hideMarkerWindow: () => dispatch(hideMarkerWindow())
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
   GoogleApiWrapper({
     apiKey: process.env.REACT_APP_GOOGLE_MAPS_API
   })(ReportsMap)
