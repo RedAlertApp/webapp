@@ -7,15 +7,11 @@ import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react"
 import { initSocket, updateReports } from "../actions"
 
 export class Dashboard extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      activeMarker: {},
-      selectedReport: {},
-      showingInfoWindow: false,
-      center: { lat: 50.87, lng: 20.62 } //Kielce
-    }
+  state = {
+    activeMarker: {},
+    selectedReport: {},
+    showingInfoWindow: false,
+    center: { lat: 50.87, lng: 20.62 } // Kielce
   }
 
   onMarkerClick = (props, marker) =>
@@ -211,6 +207,6 @@ export default connect(
   mapDispatchToProps
 )(
   GoogleApiWrapper({
-    apiKey: "AIzaSyDJpRz5sILnG-V1z9Ezvir21ByL_yNs03c"
+    apiKey: process.env.REACT_APP_GOOGLE_MAPS_API
   })(Dashboard)
 )
