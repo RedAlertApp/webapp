@@ -1,21 +1,14 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
 import io from "socket.io-client"
-import { Link } from "react-router-dom"
+
+import Navbar from "./Navbar"
+import ReportCard from "./ReportCard"
 import ReportsMap from "./ReportsMap"
 
-import { initSocket, updateReports, updateCenter } from "../actions"
+import { initSocket, updateReports } from "../actions"
 
 export class Dashboard extends Component {
-  fixReport = key => {
-    this.props.socket.emit("fixReport", this.props.reports[key].id)
-  }
-
-  showOnMap = key => {
-    let report = this.props.reports[key]
-    this.props.updateCenter({ lat: report.latitude, lng: report.longitude })
-  }
-
   componentDidMount() {
     const socket = io(process.env.REACT_APP_SERVER_URL)
     this.props.initSocket(socket)
@@ -28,23 +21,7 @@ export class Dashboard extends Component {
   render() {
     return (
       <>
-        <nav className="navbar navbar-expand-lg navbar-light bg-dark">
-          <Link className="navbar-brand" to="/" style={{ color: "white" }}>
-            Moduł Policja Kielce
-          </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
-        </nav>
-
+        <Navbar />
         <main role="main" className="container-fluid">
           <div className="row">
             <div
@@ -52,43 +29,7 @@ export class Dashboard extends Component {
               style={{ height: "90vh", marginTop: "2vh", overflow: "scroll" }}
             >
               {this.props.reports.map((report, key) => (
-                <div className="card" key={key}>
-                  <div
-                    className="card-body"
-                    style={{
-                      borderLeft:
-                        "20px solid " + mapCategoryToColor(report.category)
-                    }}
-                  >
-                    <h5 className="card-title">{report.description}</h5>
-                    <div className="card-text row">
-                      <div className="col-6">{report.extra}</div>
-                      <div className="col-6">
-                        <div className="row">
-                          <button
-                            type="button"
-                            className="btn btn-primary"
-                            onClick={() => this.fixReport(key)}
-                          >
-                            PRZYJMIJ ZGLOSZENIE
-                          </button>
-                        </div>
-                        <div className="row">
-                          <button
-                            type="button"
-                            className="btn btn-success"
-                            onClick={() => this.showOnMap(key)}
-                          >
-                            POKAŻ NA MAPIE
-                          </button>
-                        </div>
-                        <div className="row">
-                          <h4>{report.confirmations} potwierdzenia</h4>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <ReportCard key={key} id={key} report={report} />
               ))}
             </div>
             <div className="col-9">
@@ -111,28 +52,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     initSocket: socket => dispatch(initSocket(socket)),
-    updateReports: reports => dispatch(updateReports(reports)),
-    updateCenter: center => dispatch(updateCenter(center))
-  }
-}
-
-const mapCategoryToColor = category => {
-  switch (category) {
-    case "REPORT_NIEBEZPIECZENSTWO": {
-      return "red"
-    }
-
-    case "REPORT_USTERKA": {
-      return "yellow"
-    }
-
-    case "REPORT_INFORMACJA": {
-      return "deepSkyBlue"
-    }
-
-    default: {
-      return "red"
-    }
+    updateReports: reports => dispatch(updateReports(reports))
   }
 }
 

@@ -23,20 +23,20 @@ function setup() {
   }
 }
 
-describe("ReportsMap", () => {
+describe("MarkerWindowContent", () => {
   it("should render without errors", () => {
     const { wrapper } = setup()
     expect(wrapper).toHaveLength(1)
   })
   it("should have content set", () => {
     const { wrapper, props } = setup()
-    expect(wrapper.find(".report-title").text()).toBe(
+    expect(wrapper.find(".map-report-title").text()).toBe(
       props.selectedReport.description
     )
-    expect(wrapper.find(".report-extra").text()).toBe(
+    expect(wrapper.find(".map-report-extra").text()).toBe(
       props.selectedReport.extra
     )
-    expect(wrapper.find(".report-coords").text()).toBe(
+    expect(wrapper.find(".map-report-coords").text()).toBe(
       `[${props.selectedReport.latitude}, ${props.selectedReport.longitude}]`
     )
   })
