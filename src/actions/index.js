@@ -1,8 +1,9 @@
 import {
   INIT_SOCKET,
   UPDATE_REPORTS,
-  SHOW_REPORT_MODAL,
-  HIDE_REPORT_MODAL
+  UPDATE_CENTER,
+  SHOW_MARKER_WINDOW,
+  HIDE_MARKER_WINDOW
 } from "./actionTypes"
 
 export const initSocket = socket => {
@@ -19,14 +20,22 @@ export const updateReports = reports => {
   }
 }
 
-export const showReportModal = () => {
+export const updateCenter = center => {
   return {
-    type: SHOW_REPORT_MODAL
+    type: UPDATE_CENTER,
+    payload: center
   }
 }
 
-export const closeReportModal = () => {
+export const showMarkerWindow = data => {
   return {
-    type: HIDE_REPORT_MODAL
+    type: SHOW_MARKER_WINDOW,
+    payload: data
+  }
+}
+
+export const hideMarkerWindow = () => {
+  return {
+    type: HIDE_MARKER_WINDOW
   }
 }
