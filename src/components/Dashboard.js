@@ -13,9 +13,9 @@ export class Dashboard extends Component {
     const socket = io(process.env.REACT_APP_SERVER_URL)
     this.props.initSocket(socket)
 
-    socket.emit("authenticate", {
+    socket.emit("authentication", {
       token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViYzRiNTY3MWIyNWNjNDI2MGMzN2UzMSIsImlhdCI6MTUzOTYxODI5NH0.E7cD5IXwt0ZIfumfyBKuuqLvDyLofR_DUAaAT-CZoXI"
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViYzRiNTY3MWIyNWNjNDI2MGMzN2UzMSIsImlhdCI6MTU0MDA1MzA4M30.rkfITIagk2QGgBFZ8sxlUS46l3FhCkLsHKFaYRkztqw"
     })
 
     socket.on("reports", reports => {
