@@ -71,3 +71,5 @@ export const loginError = error => {
     payload: error
   }
 }
+
+export const logout = () => userService.logout()

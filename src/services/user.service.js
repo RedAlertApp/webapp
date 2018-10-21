@@ -8,10 +8,11 @@ const login = async (email, password) => {
 
   let url = `${apiRoot}/auth/`
 
-  let response = await axios.post({
+  let response = await axios({
+    method: "post",
     url: url,
     auth: {
-      email: email,
+      username: email,
       password: password
     },
     headers: {
@@ -20,16 +21,16 @@ const login = async (email, password) => {
     data: qs.stringify(data)
   })
 
-  let user = response.body.user
-  let token = response.body.token
+  let user = response.data.user
+  let token = response.data.token
 
-  let result
+  let result = {}
 
   if (user && token) {
     localStorage.setItem(ACCESS_TOKEN_ITEM_NAME, token)
     result.user = user
   } else {
-    result.error = response.body
+    result.error = response.data
   }
 
   return result

@@ -18,18 +18,18 @@ export class Login extends Component {
 
   render() {
     return (
-      <div class="container">
-        <div class="login-form">
-          <div class="main-div">
-            <div class="panel">
+      <div className="container">
+        <div className="login-form">
+          <div className="main-div">
+            <div className="panel">
               <h2>RedAlert Logowanie</h2>
               <p>Wprowadź login i hasło do konta urzędnika</p>
             </div>
             <form id="Login" onSubmit={this.submitLogin.bind(this)}>
-              <div class="form-group">
+              <div className="form-group">
                 <input
                   type="email"
-                  class="form-control"
+                  className="form-control"
                   id="inputEmail"
                   placeholder="Adres e-mail"
                   value={this.state.email}
@@ -37,22 +37,22 @@ export class Login extends Component {
                 />
               </div>
 
-              <div class="form-group">
+              <div className="form-group">
                 <input
                   type="password"
-                  class="form-control"
+                  className="form-control"
                   id="inputPassword"
                   placeholder="Hasło"
                   value={this.state.password}
                   onChange={e => this.setState({ password: e.target.value })}
                 />
               </div>
-              <div class="forgot">
+              <div className="forgot">
                 <a href="reset.html">
                   Zapomniałeś hasła? <small>nie nasz problem</small>
                 </a>
               </div>
-              <button type="submit" class="btn btn-primary">
+              <button type="submit" className="btn btn-primary">
                 Zaloguj się
               </button>
             </form>
