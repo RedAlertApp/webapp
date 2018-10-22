@@ -1,10 +1,13 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
+import Input from "@material-ui/core/Input"
 
 import { login } from "../actions"
 
 import "./Login.css"
+import { TextField } from "@material-ui/core"
 
 export class Login extends Component {
   state = {
@@ -17,6 +20,12 @@ export class Login extends Component {
     this.props.login(this.state.email, this.state.password)
   }
 
+  handleChange = name => e => {
+    this.setState({
+      [name]: e.target.value
+    })
+  }
+
   render() {
     return (
       <div className="container">
@@ -24,28 +33,28 @@ export class Login extends Component {
           <div className="main-div">
             <div className="panel">
               <Typography variant="h2">RedAlert Logowanie</Typography>
-              <Typography>Wprowadź login i hasło do konta urzędnika</Typography>
+              <Typography>Wprowadź email i hasło do konta urzędnika</Typography>
             </div>
-            <form id="Login" onSubmit={this.submitLogin.bind(this)}>
+            <form onSubmit={this.submitLogin}>
               <div className="form-group">
-                <input
+                <TextField
+                  label="Adres e-mail"
+                  fullWidth
                   type="email"
-                  className="form-control"
-                  id="inputEmail"
-                  placeholder="Adres e-mail"
+                  name="inputEmail"
                   value={this.state.email}
-                  onChange={e => this.setState({ email: e.target.value })}
+                  onChange={this.handleChange("email")}
                 />
               </div>
 
               <div className="form-group">
-                <input
+                <TextField
+                  label="Hasło"
+                  fullWidth
                   type="password"
-                  className="form-control"
-                  id="inputPassword"
-                  placeholder="Hasło"
+                  name="inputPassword"
                   value={this.state.password}
-                  onChange={e => this.setState({ password: e.target.value })}
+                  onChange={this.handleChange("password")}
                 />
               </div>
               <div className="forgot">
@@ -53,9 +62,9 @@ export class Login extends Component {
                   Zapomniałeś hasła? <small>nie nasz problem</small>
                 </a>
               </div>
-              <button type="submit" className="btn btn-primary">
+              <Button variant="contained" color="primary" type="submit">
                 Zaloguj się
-              </button>
+              </Button>
             </form>
           </div>
         </div>
