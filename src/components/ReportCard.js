@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 
 import { updateCenter } from "../actions"
+import { ListItem, ListItemText } from "@material-ui/core"
 
 export class ReportCard extends Component {
   fixReport = key => {
@@ -17,47 +18,38 @@ export class ReportCard extends Component {
 
   render() {
     return (
-      <div className="card">
-        <div
-          className="card-body"
+      <ListItem button onClick={() => this.showOnMap(this.props.id)}>
+        <ListItemText
           style={{
             borderLeft:
-              "20px solid " + mapCategoryToColor(this.props.report.category)
+              "20px solid " + mapCategoryToColor(this.props.report.category),
+            paddingLeft: "5px"
           }}
         >
           <Typography variant="h5" gutterBottom>
             {this.props.report.description}
           </Typography>
-          <div className="card-text row">
-            <div className="col-6">{this.props.report.extra}</div>
-            <div className="col-6">
-              <div className="row">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => this.fixReport(this.props.id)}
-                >
-                  PRZYJMIJ ZGLOSZENIE
-                </Button>
-              </div>
-              <div className="row">
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  onClick={() => this.showOnMap(this.props.id)}
-                >
-                  POKAŻ NA MAPIE
-                </Button>
-              </div>
-              <div className="row">
-                <Typography variant="subtitle1" gutterBottom>
-                  {this.props.report.confirmations} potwierdzenia
-                </Typography>
-              </div>
+          <Typography variant="subtitle1" gutterBottom>
+            {this.props.report.confirmations} potwierdzenia
+          </Typography>
+          <Typography variant="subtitle2" gutterBottom>
+            {this.props.report.extra}
+          </Typography>
+        </ListItemText>
+        <div className="card-text row">
+          <div className="col-12">
+            <div className="row">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => this.fixReport(this.props.id)}
+              >
+                PRZYJMIJ ZGLOSZENIE
+              </Button>
             </div>
           </div>
         </div>
-      </div>
+      </ListItem>
     )
   }
 }

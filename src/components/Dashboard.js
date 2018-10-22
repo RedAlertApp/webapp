@@ -8,6 +8,7 @@ import ReportsMap from "./ReportsMap"
 
 import { initSocket, updateReports } from "../actions"
 import { ACCESS_TOKEN_ITEM_NAME } from "../constants"
+import { List } from "@material-ui/core"
 
 export class Dashboard extends Component {
   componentDidMount() {
@@ -33,9 +34,11 @@ export class Dashboard extends Component {
               className="col-3"
               style={{ height: "90vh", marginTop: "2vh", overflow: "scroll" }}
             >
-              {this.props.reports.map((report, key) => (
-                <ReportCard key={key} id={key} report={report} />
-              ))}
+              <List>
+                {this.props.reports.map((report, key) => (
+                  <ReportCard key={key} id={key} report={report} />
+                ))}
+              </List>
             </div>
             <div className="col-9">
               <ReportsMap />
