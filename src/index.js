@@ -5,10 +5,10 @@ import { Provider } from "react-redux"
 
 import store from "./store"
 import history from "./history"
-import { logout } from "./actions"
 
 import Dashboard from "./components/Dashboard"
 import Login from "./components/Login"
+import Logout from "./components/Logout"
 import { PrivateRoute } from "./components/PrivateRoute"
 
 import "bootstrap/dist/css/bootstrap.min.css"
@@ -20,13 +20,7 @@ ReactDOM.render(
       <Switch>
         <PrivateRoute exact path="/" component={Dashboard} />
         <Route path="/login" component={Login} />
-        {/* Fix logout */}
-        <Route
-          path="/logout"
-          onEnter={() => {
-            store.dispatch(logout())
-          }}
-        />
+        {/* <Route path="/logout" component={Logout} /> */}
       </Switch>
     </Router>
   </Provider>,

@@ -72,4 +72,7 @@ export const loginError = error => {
   }
 }
 
-export const logout = () => userService.logout()
+export const logout = () => {
+  userService.logout()
+  history.push("/")
+}
