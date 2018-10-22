@@ -41,8 +41,6 @@ const appReducer = (state = initialState, action) => {
     }
 
     case SHOW_MARKER_WINDOW: {
-      console.log(state)
-      console.log(action.payload)
       return {
         ...state,
         activeMarker: action.payload.activeMarker,

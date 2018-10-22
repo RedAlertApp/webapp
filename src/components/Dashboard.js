@@ -7,11 +7,16 @@ import ReportCard from "./ReportCard"
 import ReportsMap from "./ReportsMap"
 
 import { initSocket, updateReports } from "../actions"
+import { ACCESS_TOKEN_ITEM_NAME } from "../constants"
 
 export class Dashboard extends Component {
   componentDidMount() {
     const socket = io(process.env.REACT_APP_SERVER_URL)
     this.props.initSocket(socket)
+
+    socket.emit("authentication", {
+      token: localStorage.getItem(ACCESS_TOKEN_ITEM_NAME)
+    })
 
     socket.on("reports", reports => {
       this.props.updateReports(reports)
