@@ -7,7 +7,7 @@ import Input from "@material-ui/core/Input"
 import { login } from "../actions"
 
 import "./Login.css"
-import { TextField } from "@material-ui/core"
+import { TextField, Grid } from "@material-ui/core"
 
 export class Login extends Component {
   state = {
@@ -28,47 +28,41 @@ export class Login extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="login-form">
-          <div className="main-div">
-            <div className="panel">
-              <Typography variant="h2">RedAlert Logowanie</Typography>
-              <Typography>Wprowadź email i hasło do konta urzędnika</Typography>
-            </div>
+      <Grid container justify="center">
+        <Grid item xs={3}>
+          <div className="login-form">
+            <Typography variant="h5">RedAlert Logowanie</Typography>
+            <Typography>Wprowadź email i hasło do konta urzędnika</Typography>
             <form onSubmit={this.submitLogin}>
-              <div className="form-group">
-                <TextField
-                  label="Adres e-mail"
-                  fullWidth
-                  type="email"
-                  name="inputEmail"
-                  value={this.state.email}
-                  onChange={this.handleChange("email")}
-                />
-              </div>
+              <TextField
+                label="Adres e-mail"
+                fullWidth
+                type="email"
+                name="inputEmail"
+                value={this.state.email}
+                onChange={this.handleChange("email")}
+              />
 
-              <div className="form-group">
-                <TextField
-                  label="Hasło"
-                  fullWidth
-                  type="password"
-                  name="inputPassword"
-                  value={this.state.password}
-                  onChange={this.handleChange("password")}
-                />
-              </div>
-              <div className="forgot">
+              <TextField
+                label="Hasło"
+                fullWidth
+                type="password"
+                name="inputPassword"
+                value={this.state.password}
+                onChange={this.handleChange("password")}
+              />
+              <Typography>
                 <a href="reset.html">
                   Zapomniałeś hasła? <small>nie nasz problem</small>
                 </a>
-              </div>
+              </Typography>
               <Button variant="contained" color="primary" type="submit">
                 Zaloguj się
               </Button>
             </form>
           </div>
-        </div>
-      </div>
+        </Grid>
+      </Grid>
     )
   }
 }
