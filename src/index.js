@@ -5,6 +5,7 @@ import { Provider } from "react-redux"
 
 import store from "./store"
 import history from "./history"
+import { logout } from "./actions"
 
 import Dashboard from "./components/Dashboard"
 import Login from "./components/Login"
@@ -12,7 +13,6 @@ import { PrivateRoute } from "./components/PrivateRoute"
 
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./index.css"
-import { logout } from "./actions"
 
 ReactDOM.render(
   <Provider store={store}>
