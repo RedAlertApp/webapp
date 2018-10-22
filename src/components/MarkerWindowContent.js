@@ -1,13 +1,18 @@
 import React from "react"
+import { Typography } from "@material-ui/core"
 
 export default function MarkerWindowContent(props) {
   return (
     <div>
-      <h1 className="map-report-title">{props.selectedReport.description}</h1>
-      <p className="map-report-extra">{props.selectedReport.extra}</p>
-      <p className="map-report-coords">
+      <Typography variant="h3" gutterBottom>
+        {props.selectedReport.description}
+      </Typography>
+      <Typography className="map-report-extra">
+        {props.selectedReport.extra}
+      </Typography>
+      <Typography className="map-report-coords">
         [{props.selectedReport.latitude}, {props.selectedReport.longitude}]
-      </p>
+      </Typography>
     </div>
   )
 }

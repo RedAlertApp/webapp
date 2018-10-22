@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+import Typography from "@material-ui/core/Typography"
 
 import { login } from "../actions"
 
@@ -22,8 +23,8 @@ export class Login extends Component {
         <div className="login-form">
           <div className="main-div">
             <div className="panel">
-              <h2>RedAlert Logowanie</h2>
-              <p>Wprowadź login i hasło do konta urzędnika</p>
+              <Typography variant="h2">RedAlert Logowanie</Typography>
+              <Typography>Wprowadź login i hasło do konta urzędnika</Typography>
             </div>
             <form id="Login" onSubmit={this.submitLogin.bind(this)}>
               <div className="form-group">

@@ -1,5 +1,7 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
+import Button from "@material-ui/core/Button"
+import Typography from "@material-ui/core/Typography"
 
 import { updateCenter } from "../actions"
 
@@ -23,30 +25,34 @@ export class ReportCard extends Component {
               "20px solid " + mapCategoryToColor(this.props.report.category)
           }}
         >
-          <h5 className="card-title">{this.props.report.description}</h5>
+          <Typography variant="h5" gutterBottom>
+            {this.props.report.description}
+          </Typography>
           <div className="card-text row">
             <div className="col-6">{this.props.report.extra}</div>
             <div className="col-6">
               <div className="row">
-                <button
-                  type="button"
-                  className="btn btn-primary"
+                <Button
+                  variant="contained"
+                  color="primary"
                   onClick={() => this.fixReport(this.props.id)}
                 >
                   PRZYJMIJ ZGLOSZENIE
-                </button>
+                </Button>
               </div>
               <div className="row">
-                <button
-                  type="button"
-                  className="btn btn-success"
+                <Button
+                  variant="contained"
+                  color="secondary"
                   onClick={() => this.showOnMap(this.props.id)}
                 >
                   POKAŻ NA MAPIE
-                </button>
+                </Button>
               </div>
               <div className="row">
-                <h4>{this.props.report.confirmations} potwierdzenia</h4>
+                <Typography variant="subtitle1" gutterBottom>
+                  {this.props.report.confirmations} potwierdzenia
+                </Typography>
               </div>
             </div>
           </div>
