@@ -7,6 +7,7 @@ import ReportCard from "./ReportCard"
 import ReportsMap from "./ReportsMap"
 
 import { initSocket, updateReports } from "../actions"
+import { ACCESS_TOKEN_ITEM_NAME } from "../constants"
 
 export class Dashboard extends Component {
   componentDidMount() {
@@ -14,8 +15,7 @@ export class Dashboard extends Component {
     this.props.initSocket(socket)
 
     socket.emit("authentication", {
-      token:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViYzRiNTY3MWIyNWNjNDI2MGMzN2UzMSIsImlhdCI6MTU0MDA1MzA4M30.rkfITIagk2QGgBFZ8sxlUS46l3FhCkLsHKFaYRkztqw"
+      token: localStorage.getItem(ACCESS_TOKEN_ITEM_NAME)
     })
 
     socket.on("reports", reports => {
