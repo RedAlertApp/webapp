@@ -8,7 +8,7 @@ import ReportsMap from "./ReportsMap"
 
 import { initSocket, updateReports } from "../actions"
 import { ACCESS_TOKEN_ITEM_NAME } from "../constants"
-import { List } from "@material-ui/core"
+import { List, Grid } from "@material-ui/core"
 
 export class Dashboard extends Component {
   componentDidMount() {
@@ -29,21 +29,19 @@ export class Dashboard extends Component {
       <>
         <Navbar />
         <main role="main" className="container-fluid">
-          <div className="row">
-            <div
-              className="col-3"
-              style={{ height: "90vh", marginTop: "2vh", overflow: "scroll" }}
-            >
+          <Grid container spacing={24}>
+            <Grid item xs={3}>
               <List>
                 {this.props.reports.map((report, key) => (
                   <ReportCard key={key} id={key} report={report} />
                 ))}
               </List>
-            </div>
-            <div className="col-9">
+            </Grid>
+
+            <Grid item xs={9}>
               <ReportsMap />
-            </div>
-          </div>
+            </Grid>
+          </Grid>
         </main>
       </>
     )

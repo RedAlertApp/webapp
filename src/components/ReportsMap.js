@@ -21,10 +21,8 @@ export class ReportsMap extends Component {
   render() {
     return (
       <Map
-        className="map"
         google={this.props.google}
         onClick={this.onMapClicked}
-        style={{ height: "90vh", position: "relative", width: "100%" }}
         zoom={14}
         initialCenter={defaultRegion}
         center={this.props.center}
