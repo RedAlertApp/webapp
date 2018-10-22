@@ -4,7 +4,7 @@ import { Typography } from "@material-ui/core"
 export default function MarkerWindowContent(props) {
   return (
     <div>
-      <Typography variant="h3" gutterBottom>
+      <Typography variant="h3" gutterBottom className="map-report-title">
         {props.selectedReport.description}
       </Typography>
       <Typography className="map-report-extra">
