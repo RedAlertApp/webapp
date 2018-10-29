@@ -32,28 +32,17 @@ export class ReportsMap extends Component {
         yesIWantToUseGoogleMapApiInternals
       >
         {this.props.reports.map((report, key) => (
-          //   <Marker
-          //     description={report.description}
-          //     extra={report.extra}
-          //     latitude={report.latitude}
-          //     longitude={report.longitude}
-          //     confirmations={report.confirmations}
-          //     onClick={this.onMarkerClick}
-          //     position={{ lat: report.latitude, lng: report.longitude }}
-          //     key={key}
-          //   />
-          // ))}
-          // <InfoWindow
-          //   marker={this.props.activeMarker}
-          //   visible={this.props.showingInfoWindow}
-          // >
           <Marker
             key={key}
             text={report.description}
             lat={report.latitude}
             lng={report.longitude}
           >
-            <MarkerWindowContent selectedReport={this.props.selectedReport} />
+            {this.props.selectedReport ? (
+              <MarkerWindowContent selectedReport={this.props.selectedReport} />
+            ) : (
+              <></>
+            )}
           </Marker>
         ))}
       </GoogleMapReact>

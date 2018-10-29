@@ -13,7 +13,7 @@ const initialState = {
   socket: null,
   center: defaultRegion, // Kielce
   activeMarker: {},
-  selectedReport: {},
+  selectedReport: null,
   showingInfoWindow: false
 }
 
