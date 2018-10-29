@@ -1,20 +1,19 @@
 import React, { Fragment } from "react"
 import PropTypes from "prop-types"
 
-const K_WIDTH = 35
-const K_HEIGHT = 35
+const MARKER_RADIUS = 35
 
 const Marker = props => (
   <div
     style={{
       position: "absolute",
-      width: K_WIDTH,
-      height: K_HEIGHT,
-      left: -K_WIDTH / 2,
-      top: -K_HEIGHT / 2,
+      width: MARKER_RADIUS,
+      height: MARKER_RADIUS,
+      left: -MARKER_RADIUS / 2,
+      top: -MARKER_RADIUS / 2,
 
       border: "5px solid #f44336",
-      borderRadius: K_HEIGHT,
+      borderRadius: MARKER_RADIUS,
       backgroundColor: "white",
       textAlign: "center",
       color: "#3f51b5",
