@@ -1,8 +1,8 @@
 import React, { Fragment } from "react"
 import PropTypes from "prop-types"
 
-const K_WIDTH = 40
-const K_HEIGHT = 40
+const K_WIDTH = 35
+const K_HEIGHT = 35
 
 const Marker = props => (
   <div
@@ -23,8 +23,7 @@ const Marker = props => (
       padding: 4
     }}
   >
-    {props.text.substr(0, 1)}
-    {/* {...props.onClick ? { onClick: props.onClick } : {}} */}
+    {props.text.substr(0, 1).toUpperCase()}
     {props.children}
   </div>
 )
