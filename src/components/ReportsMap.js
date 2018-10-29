@@ -1,10 +1,11 @@
 import React, { Component } from "react"
 import { connect } from "react-redux"
-import { Map, Marker, GoogleApiWrapper, InfoWindow } from "google-maps-react"
+import GoogleMapReact from "google-map-react"
 import { defaultRegion } from "../constants"
 
 import { showMarkerWindow, hideMarkerWindow } from "../actions"
 import MarkerWindowContent from "./MarkerWindowContent"
+import Marker from "./Marker"
 
 export class ReportsMap extends Component {
   onMapClicked = () => {
@@ -20,32 +21,42 @@ export class ReportsMap extends Component {
 
   render() {
     return (
-      <Map
-        google={this.props.google}
+      <GoogleMapReact
+        bootstrapURLKeys={{
+          key: process.env.REACT_APP_GOOGLE_MAPS_API
+        }}
         onClick={this.onMapClicked}
-        zoom={14}
-        initialCenter={defaultRegion}
+        defaultZoom={14}
+        defaultCenter={defaultRegion}
         center={this.props.center}
+        yesIWantToUseGoogleMapApiInternals
       >
         {this.props.reports.map((report, key) => (
+          //   <Marker
+          //     description={report.description}
+          //     extra={report.extra}
+          //     latitude={report.latitude}
+          //     longitude={report.longitude}
+          //     confirmations={report.confirmations}
+          //     onClick={this.onMarkerClick}
+          //     position={{ lat: report.latitude, lng: report.longitude }}
+          //     key={key}
+          //   />
+          // ))}
+          // <InfoWindow
+          //   marker={this.props.activeMarker}
+          //   visible={this.props.showingInfoWindow}
+          // >
           <Marker
-            description={report.description}
-            extra={report.extra}
-            latitude={report.latitude}
-            longitude={report.longitude}
-            confirmations={report.confirmations}
-            onClick={this.onMarkerClick}
-            position={{ lat: report.latitude, lng: report.longitude }}
             key={key}
-          />
+            text={report.description}
+            lat={report.latitude}
+            lng={report.longitude}
+          >
+            <MarkerWindowContent selectedReport={this.props.selectedReport} />
+          </Marker>
         ))}
-        <InfoWindow
-          marker={this.props.activeMarker}
-          visible={this.props.showingInfoWindow}
-        >
-          <MarkerWindowContent selectedReport={this.props.selectedReport} />
-        </InfoWindow>
-      </Map>
+      </GoogleMapReact>
     )
   }
 }
@@ -70,8 +81,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(
-  GoogleApiWrapper({
-    apiKey: process.env.REACT_APP_GOOGLE_MAPS_API
-  })(ReportsMap)
-)
+)(ReportsMap)

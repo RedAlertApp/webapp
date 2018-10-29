@@ -39,7 +39,9 @@ export class Dashboard extends Component {
             </Grid>
 
             <Grid item xs={9}>
-              <ReportsMap />
+              <div style={{ height: "90vh", width: "100%" }}>
+                <ReportsMap />
+              </div>
             </Grid>
           </Grid>
         </main>
