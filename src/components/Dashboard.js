@@ -28,7 +28,7 @@ export class Dashboard extends Component {
     return (
       <>
         <Navbar />
-        <main role="main" className="container-fluid">
+        <main role="main" className="container-fluid" style={{ marginTop: 10 }}>
           <Grid container spacing={24}>
             <Grid item xs={3}>
               <List>
@@ -38,10 +38,8 @@ export class Dashboard extends Component {
               </List>
             </Grid>
 
-            <Grid item xs={9}>
-              <div style={{ height: "90vh", width: "100%" }}>
-                <ReportsMap />
-              </div>
+            <Grid item xs={9} style={{ height: "90vh" }}>
+              <ReportsMap />
             </Grid>
           </Grid>
         </main>
