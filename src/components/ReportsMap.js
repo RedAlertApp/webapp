@@ -4,20 +4,21 @@ import GoogleMapReact from "google-map-react"
 import { defaultRegion } from "../constants"
 
 import { showMarkerWindow, hideMarkerWindow } from "../actions"
-import MarkerWindowContent from "./MarkerWindowContent"
 import Marker from "./Marker"
 
 export class ReportsMap extends Component {
   onMapClicked = () => {
+    console.log("clicked")
     if (this.props.showingInfoWindow) this.props.hideMarkerWindow()
   }
 
-  onMarkerClick = (props, marker) =>
+  onMarkerClick = (key, childProps) => {
+    let report = this.props.reports[key]
     this.props.showMarkerWindow({
-      activeMarker: marker,
-      selectedReport: props,
+      selectedReport: report,
       showingInfoWindow: true
     })
+  }
 
   render() {
     return (
@@ -25,24 +26,26 @@ export class ReportsMap extends Component {
         bootstrapURLKeys={{
           key: process.env.REACT_APP_GOOGLE_MAPS_API
         }}
-        onClick={this.onMapClicked}
         defaultZoom={14}
         defaultCenter={defaultRegion}
         center={this.props.center}
+        onClick={this.onMapClicked}
+        onChildClick={this.onMarkerClick}
         yesIWantToUseGoogleMapApiInternals
       >
         {this.props.reports.map((report, key) => (
           <Marker
             key={key}
-            text={report.description}
             lat={report.latitude}
             lng={report.longitude}
+            text={report.description}
+            report={report}
           >
-            {this.props.selectedReport ? (
+            {/* {this.props.selectedReport ? (
               <MarkerWindowContent selectedReport={this.props.selectedReport} />
             ) : (
               <></>
-            )}
+            )} */}
           </Marker>
         ))}
       </GoogleMapReact>

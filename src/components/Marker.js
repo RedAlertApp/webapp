@@ -1,39 +1,66 @@
-import React, { Fragment } from "react"
-import PropTypes from "prop-types"
+import React, { Component } from "react"
+import { connect } from "react-redux"
+import { Paper, Card, CardContent } from "@material-ui/core"
+
+import MarkerWindowContent from "./MarkerWindowContent"
 
 const MARKER_RADIUS = 35
 
-const Marker = props => (
-  <div
-    style={{
-      position: "absolute",
-      width: MARKER_RADIUS,
-      height: MARKER_RADIUS,
-      left: -MARKER_RADIUS / 2,
-      top: -MARKER_RADIUS / 2,
+export class Marker extends Component {
+  shouldRenderInfo = () => {
+    return (
+      this.props.report === this.props.selectedReport &&
+      this.props.showingInfoWindow
+    )
+  }
 
-      border: "5px solid #f44336",
-      borderRadius: MARKER_RADIUS,
-      backgroundColor: "white",
-      textAlign: "center",
-      color: "#3f51b5",
-      fontSize: 16,
-      fontWeight: "bold",
-      padding: 4
-    }}
-  >
-    {props.text.substr(0, 1).toUpperCase()}
-    {props.children}
-  </div>
-)
+  render() {
+    return (
+      <>
+        <div
+          style={{
+            position: "absolute",
+            width: MARKER_RADIUS,
+            height: MARKER_RADIUS,
+            left: -MARKER_RADIUS / 2,
+            top: -MARKER_RADIUS / 2,
 
-Marker.defaultProps = {
-  onClick: null
+            border: "5px solid #f44336",
+            borderRadius: MARKER_RADIUS,
+            backgroundColor: "white",
+            textAlign: "center",
+            color: "#3f51b5",
+            fontSize: 16,
+            fontWeight: "bold",
+            padding: 4
+          }}
+        >
+          {this.props.text.substr(0, 1).toUpperCase()}
+        </div>
+        {this.shouldRenderInfo() && (
+          <Card
+            style={{
+              marginTop: "5px",
+              marginLeft: "-5px",
+              overflow: "auto",
+              display: "inline-block"
+            }}
+          >
+            <CardContent>
+              <MarkerWindowContent selectedReport={this.props.report} />
+            </CardContent>
+          </Card>
+        )}
+      </>
+    )
+  }
 }
 
-Marker.propTypes = {
-  onClick: PropTypes.func,
-  text: PropTypes.string.isRequired
+const mapStateToProps = state => {
+  return {
+    selectedReport: state.appReducer.selectedReport,
+    showingInfoWindow: state.appReducer.showingInfoWindow
+  }
 }
 
-export default Marker
+export default connect(mapStateToProps)(Marker)

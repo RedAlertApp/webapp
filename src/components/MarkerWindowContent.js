@@ -10,7 +10,10 @@ export default function MarkerWindowContent(props) {
       <Typography className="map-report-extra">
         {props.selectedReport.extra}
       </Typography>
-      <Typography className="map-report-coords">
+      <Typography
+        className="map-report-coords"
+        style={{ whiteSpace: "nowrap" }}
+      >
         [{props.selectedReport.latitude}, {props.selectedReport.longitude}]
       </Typography>
     </div>
